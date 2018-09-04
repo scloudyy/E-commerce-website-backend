@@ -12,7 +12,7 @@ row_data = [
         'categorys': [
             'index',
             'Electronics',
-            'Computer'
+            'Computer Category'
         ],
         'market_price': '128',
         'name': 'computer1',

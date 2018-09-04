@@ -100,7 +100,7 @@ class GoodsImage(models.Model):
     goods slide show image
     """
     goods = models.ForeignKey(Goods, verbose_name="goods", related_name="images", on_delete=models.ProtectedError)
-    image = models.ImageField(upload_to="", verbose_name="images", null=True, blank=True)
+    image = models.ImageField(upload_to="goods/images/", verbose_name="images", null=True, blank=True)
     add_time = models.DateTimeField(default=datetime.now, verbose_name="added time")
 
     class Meta:
