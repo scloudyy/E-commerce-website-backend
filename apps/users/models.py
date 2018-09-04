@@ -20,6 +20,10 @@ class UserProfile(AbstractUser):
         verbose_name_plural = "user"
 
     def __str__(self):
+        # since user can use mobile to login, 'name' can be None
+        # if name is None, __str__ will lead to ERROR
+        if self.name is None:
+            return self.username
         return self.name
 
 

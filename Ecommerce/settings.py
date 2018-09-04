@@ -43,7 +43,11 @@ INSTALLED_APPS = [
     'goods',
     'trade',
     'user_operation',
-    'DjangoUeditor'
+    'DjangoUeditor',
+    'crispy_forms',
+    'django_filters',
+    'rest_framework',
+    'rest_framework.authtoken'
 ]
 
 MIDDLEWARE = [

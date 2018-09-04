@@ -79,6 +79,8 @@ class Goods(models.Model):
         verbose_name_plural = 'goods'
 
     def __str__(self):
+        if self.name is None:
+            return 'NULL'
         return self.name
 
 
