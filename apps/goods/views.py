@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import mixins
 from rest_framework import generics
+from rest_framework.pagination import PageNumberPagination
 
 from .models import Goods
 from .serializers import GoodsSerializer
@@ -40,6 +41,15 @@ from .serializers import GoodsSerializer
 
 # update to use special generics
 
+
+class GoodsSetPagination(PageNumberPagination):
+    page_size = 5
+    page_size_query_param = 'page_size'  # front end set param: http://127.0.0.1:8000/goods/?page_size=3
+    page_query_param = 'p'
+    max_page_size = 20
+
+
 class GoodsListView(generics.ListAPIView):
     queryset = Goods.objects.all()[:10]
     serializer_class = GoodsSerializer
+    pagination_class = GoodsSetPagination
