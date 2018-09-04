@@ -19,7 +19,7 @@ class GoodsCategory(models.Model):
     desc = models.TextField(default="", verbose_name="category description", help_text="category description")
     category_type = models.IntegerField(choices=CATEGORY_TYPE, verbose_name="category level", help_text="category level")
     parent_category = models.ForeignKey("self", null=True, blank=True, verbose_name="parent category", help_text="parent categoty",
-                                        related_name="sub_cat")
+                                        related_name="sub_cat", on_delete=models.ProtectedError)
     is_tab = models.BooleanField(default=False, verbose_name="whether on the tab", help_text="whether on the tab")
     add_time = models.DateTimeField(default=datetime.now, verbose_name="added time")
 
@@ -35,7 +35,8 @@ class GoodsCategoryBrand(models.Model):
     """
     brand name
     """
-    category = models.ForeignKey(GoodsCategory, related_name='brands', null=True, blank=True, verbose_name="category name")
+    category = models.ForeignKey(GoodsCategory, related_name='brands', null=True, blank=True,
+                                 verbose_name="category name", on_delete=models.ProtectedError)
     name = models.CharField(default="", max_length=30, verbose_name="brand name", help_text="brand name")
     desc = models.TextField(default="", max_length=200, verbose_name="brand description", help_text="brand description")
     image = models.ImageField(max_length=200, upload_to="brands/images/")
@@ -54,7 +55,8 @@ class Goods(models.Model):
     """
     goods
     """
-    category = models.ForeignKey(GoodsCategory, verbose_name="category name")
+    category = models.ForeignKey(GoodsCategory, verbose_name="category name"
+                                 , on_delete=models.ProtectedError)
     goods_sn = models.CharField(max_length=50, default="", verbose_name="good sn")
     name = models.CharField(max_length=100, verbose_name="good name")
     click_num = models.IntegerField(default=0, verbose_name="click name")
@@ -81,8 +83,9 @@ class Goods(models.Model):
 
 
 class IndexAd(models.Model):
-    category = models.ForeignKey(GoodsCategory, related_name='category', verbose_name="category name")
-    goods = models.ForeignKey(Goods, related_name='goods')
+    category = models.ForeignKey(GoodsCategory, related_name='category', verbose_name="category name",
+                                 on_delete=models.ProtectedError)
+    goods = models.ForeignKey(Goods, related_name='goods', on_delete=models.ProtectedError)
 
     class Meta:
         verbose_name = 'index page goods category Ads'
@@ -96,7 +99,7 @@ class GoodsImage(models.Model):
     """
     goods slide show image
     """
-    goods = models.ForeignKey(Goods, verbose_name="goods", related_name="images")
+    goods = models.ForeignKey(Goods, verbose_name="goods", related_name="images", on_delete=models.ProtectedError)
     image = models.ImageField(upload_to="", verbose_name="images", null=True, blank=True)
     add_time = models.DateTimeField(default=datetime.now, verbose_name="added time")
 
@@ -112,7 +115,7 @@ class Banner(models.Model):
     """
     index page banner slide show goods
     """
-    goods = models.ForeignKey(Goods, verbose_name="goods")
+    goods = models.ForeignKey(Goods, verbose_name="goods", on_delete=models.ProtectedError)
     image = models.ImageField(upload_to='banner', verbose_name="slide show images")
     index = models.IntegerField(default=0, verbose_name="slide show order")
     add_time = models.DateTimeField(default=datetime.now, verbose_name="added time")

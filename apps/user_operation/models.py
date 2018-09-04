@@ -12,8 +12,8 @@ class UserFav(models.Model):
     """
     user favorite
     """
-    user = models.ForeignKey(User, verbose_name="user")
-    goods = models.ForeignKey(Goods, verbose_name="goods name", help_text="goods name")
+    user = models.ForeignKey(User, verbose_name="user", on_delete=models.ProtectedError)
+    goods = models.ForeignKey(Goods, verbose_name="goods name", help_text="goods name", on_delete=models.ProtectedError)
     add_time = models.DateTimeField(default=datetime.now, verbose_name="added time")
 
     class Meta:
@@ -22,7 +22,7 @@ class UserFav(models.Model):
         unique_together = ("user", "goods")
 
     def __str__(self):
-        return self.user.username
+        return self.user
 
 
 class UserLeavingMessage(models.Model):
@@ -36,7 +36,7 @@ class UserLeavingMessage(models.Model):
         (4, "after sale"),
         (5, "buy")
     )
-    user = models.ForeignKey(User, verbose_name="user")
+    user = models.ForeignKey(User, verbose_name="user", on_delete=models.ProtectedError)
     message_type = models.IntegerField(default=1, choices=MESSAGE_CHOICES, verbose_name="message type",
                                        help_text="message type: 1(message), 2(compalin), 3(query), 4(after sale), 5(buy)")
     subject = models.CharField(max_length=100, default="", verbose_name="subject")
@@ -56,7 +56,7 @@ class UserAddress(models.Model):
     """
     user address
     """
-    user = models.ForeignKey(User, verbose_name="user")
+    user = models.ForeignKey(User, verbose_name="user", on_delete=models.ProtectedError)
     province = models.CharField(max_length=100, default="", verbose_name="state")
     city = models.CharField(max_length=100, default="", verbose_name="city")
     district = models.CharField(max_length=100, default="", verbose_name="region")

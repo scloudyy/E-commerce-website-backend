@@ -12,8 +12,8 @@ class ShoppingCart(models.Model):
     """
     Shopping Cart
     """
-    user = models.ForeignKey(User, verbose_name="user")
-    goods = models.ForeignKey(Goods, verbose_name="good")
+    user = models.ForeignKey(User, verbose_name="user", on_delete=models.ProtectedError)
+    goods = models.ForeignKey(Goods, verbose_name="good", on_delete=models.ProtectedError)
     nums = models.IntegerField(default=0, verbose_name="good number")
 
     add_time = models.DateTimeField(default=datetime.now, verbose_name="added time")
@@ -39,7 +39,7 @@ class OrderInfo(models.Model):
         ("PAYING", "paying"),
     )
 
-    user = models.ForeignKey(User, verbose_name="user")
+    user = models.ForeignKey(User, verbose_name="user", on_delete=models.ProtectedError)
     order_sn = models.CharField(max_length=30, null=True, blank=True, unique=True, verbose_name="order sn")
     trade_no = models.CharField(max_length=100, unique=True, null=True, blank=True, verbose_name="trade sn")
     pay_status = models.CharField(choices=ORDER_STATUS, default="paying", max_length=30, verbose_name="pay status")
@@ -66,8 +66,9 @@ class OrderGoods(models.Model):
     """
     Order Goods
     """
-    order = models.ForeignKey(OrderInfo, verbose_name="order info", related_name="goods")
-    goods = models.ForeignKey(Goods, verbose_name="goods name")
+    order = models.ForeignKey(OrderInfo, verbose_name="order info", related_name="goods",
+                              on_delete=models.ProtectedError)
+    goods = models.ForeignKey(Goods, verbose_name="goods name", on_delete=models.ProtectedError)
     goods_num = models.IntegerField(default=0, verbose_name="goods number")
 
     add_time = models.DateTimeField(default=datetime.now, verbose_name="added time")
