@@ -42,7 +42,7 @@ class OrderInfo(models.Model):
     user = models.ForeignKey(User, verbose_name="user")
     order_sn = models.CharField(max_length=30, null=True, blank=True, unique=True, verbose_name="order sn")
     trade_no = models.CharField(max_length=100, unique=True, null=True, blank=True, verbose_name="trade sn")
-    order_status = models.CharField(choices=ORDER_STATUS, default="paying", max_length=30, verbose_name="pay status")
+    pay_status = models.CharField(choices=ORDER_STATUS, default="paying", max_length=30, verbose_name="pay status")
     post_script = models.CharField(max_length=200, verbose_name="order post script")
     order_mount = models.FloatField(default=0.0, verbose_name="order mount")
     pay_time = models.DateTimeField(null=True, blank=True, verbose_name="pay time")

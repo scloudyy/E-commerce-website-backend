@@ -92,7 +92,7 @@ class IndexAd(models.Model):
         return self.goods.name
 
 
-class GoodsSlideShowImage(models.Model):
+class GoodsImage(models.Model):
     """
     goods slide show image
     """
@@ -108,7 +108,7 @@ class GoodsSlideShowImage(models.Model):
         return self.goods.name
 
 
-class IndexBanner(models.Model):
+class Banner(models.Model):
     """
     index page banner slide show goods
     """
