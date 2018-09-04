@@ -1,4 +1,3 @@
-
 from django.contrib import admin
 from goods.models import GoodsCategory, GoodsCategoryBrand, Goods, IndexAd, GoodsImage, Banner
 

@@ -1,3 +1,7 @@
 from django.contrib import admin
+from user_operation.models import UserFav, UserLeavingMessage, UserAddress
 
-# Register your models here.
+admin.site.register(UserFav)
+admin.site.register(UserLeavingMessage)
+admin.site.register(UserAddress)
+
