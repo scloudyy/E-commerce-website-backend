@@ -33,7 +33,7 @@ class GoodsCategory(models.Model):
 
 class GoodsCategoryBrand(models.Model):
     """
-    品牌名
+    brand name
     """
     category = models.ForeignKey(GoodsCategory, related_name='brands', null=True, blank=True, verbose_name="category name")
     name = models.CharField(default="", max_length=30, verbose_name="brand name", help_text="brand name")
@@ -78,3 +78,48 @@ class Goods(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class IndexAd(models.Model):
+    category = models.ForeignKey(GoodsCategory, related_name='category', verbose_name="category name")
+    goods = models.ForeignKey(Goods, related_name='goods')
+
+    class Meta:
+        verbose_name = 'index page goods category Ads'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.goods.name
+
+
+class GoodsSlideShowImage(models.Model):
+    """
+    goods slide show image
+    """
+    goods = models.ForeignKey(Goods, verbose_name="goods", related_name="images")
+    image = models.ImageField(upload_to="", verbose_name="images", null=True, blank=True)
+    add_time = models.DateTimeField(default=datetime.now, verbose_name="added time")
+
+    class Meta:
+        verbose_name = 'goods slide show image'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.goods.name
+
+
+class IndexBanner(models.Model):
+    """
+    index page banner slide show goods
+    """
+    goods = models.ForeignKey(Goods, verbose_name="goods")
+    image = models.ImageField(upload_to='banner', verbose_name="slide show images")
+    index = models.IntegerField(default=0, verbose_name="slide show order")
+    add_time = models.DateTimeField(default=datetime.now, verbose_name="added time")
+
+    class Meta:
+        verbose_name = 'index page banner slide show goods'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.goods.name
