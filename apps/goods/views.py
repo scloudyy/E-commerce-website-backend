@@ -42,7 +42,7 @@ from .filters import GoodsFilter
 #     def get(self, request, *args, **kwargs):
 #         return self.list(request, *args, **kwargs)
 
-# update to use special generics
+# update to use special generics, which combines GenericAPIView and mixin
 
 
 class GoodsSetPagination(PageNumberPagination):
@@ -52,12 +52,12 @@ class GoodsSetPagination(PageNumberPagination):
     max_page_size = 20
 
 
-# class GoodsListView(generics.ListAPIView):
+# class GoodsListView(generics.ListAPIView): # ListAPIView(mixins.ListModelMixin,GenericAPIView)
 #     queryset = Goods.objects.all()[:10]
 #     serializer_class = GoodsSerializer
 #     pagination_class = GoodsSetPagination
 
-# Then update to ViewSet and Router
+# Then update to ViewSet which rewirte as_view(), and we can coop with Router
 
 # class GoodsListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 #     # since GenericViewSet not define get() post(), we need to use ListModelMixin also
@@ -65,6 +65,7 @@ class GoodsSetPagination(PageNumberPagination):
 #     serializer_class = GoodsSerializer
 #     pagination_class = GoodsSetPagination
 #
+#     # define filter by overwrite get_queryset
 #     def get_queryset(self):
 #         queryset = Goods.objects.all()
 #         price_min = self.request.query_params.get('price_min', 0)
@@ -72,7 +73,7 @@ class GoodsSetPagination(PageNumberPagination):
 #             queryset = queryset.filter(shop_price__gt=int(price_min))
 #         return queryset
 
-# update filter to django filters
+# update filter to django_filters and rest_framework.filters
 
 class GoodsListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     # since GenericViewSet not define get() post(), we need to use ListModelMixin also
