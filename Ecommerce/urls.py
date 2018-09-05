@@ -22,13 +22,14 @@ from rest_framework.routers import DefaultRouter
 
 from Ecommerce.settings import MEDIA_ROOT
 # from goods.views import GoodsListView
-from goods.views import GoodsListViewSet
+from goods.views import GoodsListViewSet, CategoryViewSet
 
 
 # goods_list = GoodsListViewSet.as_view({'get': 'list'})
 
 router = DefaultRouter()
 router.register(r'goods', GoodsListViewSet, base_name='goods')
+router.register(r'categories', CategoryViewSet, base_name='categories')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
