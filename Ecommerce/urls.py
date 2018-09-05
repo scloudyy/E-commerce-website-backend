@@ -19,6 +19,9 @@ from django.conf.urls import url, include
 from django.views.static import serve
 from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
+from rest_framework.authtoken import views
+
+from rest_framework_jwt.views import obtain_jwt_token
 
 from Ecommerce.settings import MEDIA_ROOT
 # from goods.views import GoodsListView
@@ -29,12 +32,13 @@ from goods.views import GoodsListViewSet, CategoryViewSet
 
 router = DefaultRouter()
 router.register(r'goods', GoodsListViewSet, base_name='goods')
-router.register(r'categories', CategoryViewSet, base_name='categories')
+router.register(r'categorys', CategoryViewSet, base_name='categorys')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^media/(?P<path>.*)$', serve, {'document_root': MEDIA_ROOT}),
     url(r'^api-auth/', include('rest_framework.urls')),
+    url(r'^api-token-auth/', views.obtain_auth_token),
     # goods list
     # update to use GoodsListView
     # url(r'^goods/$', GoodsListView.as_view(), name='goods-list'),
@@ -42,6 +46,8 @@ urlpatterns = [
     # url(r'^goods/$', goods_list, name='goods-list'),
     # update to use router
     url(r'^', include(router.urls)),
+    url(r'^login/', obtain_jwt_token),
 
     url(r'docs/', include_docs_urls(title='Ecommerce')),
+
 ]
