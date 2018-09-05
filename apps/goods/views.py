@@ -5,6 +5,8 @@ from rest_framework import status
 from rest_framework import mixins
 from rest_framework import generics
 from rest_framework.pagination import PageNumberPagination
+from rest_framework import viewsets
+from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import Goods
 from .serializers import GoodsSerializer
@@ -49,7 +51,37 @@ class GoodsSetPagination(PageNumberPagination):
     max_page_size = 20
 
 
-class GoodsListView(generics.ListAPIView):
-    queryset = Goods.objects.all()[:10]
+# class GoodsListView(generics.ListAPIView):
+#     queryset = Goods.objects.all()[:10]
+#     serializer_class = GoodsSerializer
+#     pagination_class = GoodsSetPagination
+
+# Then update to ViewSet and Router
+
+# class GoodsListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+#     # since GenericViewSet not define get() post(), we need to use ListModelMixin also
+#
+#     serializer_class = GoodsSerializer
+#     pagination_class = GoodsSetPagination
+#
+#     def get_queryset(self):
+#         queryset = Goods.objects.all()
+#         price_min = self.request.query_params.get('price_min', 0)
+#         if price_min:
+#             queryset = queryset.filter(shop_price__gt=int(price_min))
+#         return queryset
+
+# update filter to django filters
+
+class GoodsListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    # since GenericViewSet not define get() post(), we need to use ListModelMixin also
+    queryset = Goods.objects.all()
     serializer_class = GoodsSerializer
     pagination_class = GoodsSetPagination
+
+    def get_queryset(self):
+        queryset = Goods.objects.all()
+        price_min = self.request.query_params.get('price_min', 0)
+        if price_min:
+            queryset = queryset.filter(shop_price__gt=int(price_min))
+        return queryset

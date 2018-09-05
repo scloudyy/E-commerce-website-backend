@@ -18,16 +18,29 @@ from django.urls import path
 from django.conf.urls import url, include
 from django.views.static import serve
 from rest_framework.documentation import include_docs_urls
+from rest_framework.routers import DefaultRouter
 
 from Ecommerce.settings import MEDIA_ROOT
-from goods.views import GoodsListView
+# from goods.views import GoodsListView
+from goods.views import GoodsListViewSet
+
+
+# goods_list = GoodsListViewSet.as_view({'get': 'list'})
+
+router = DefaultRouter()
+router.register(r'goods', GoodsListViewSet, base_name='goods')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^media/(?P<path>.*)$', serve, {'document_root': MEDIA_ROOT}),
     url(r'^api-auth/', include('rest_framework.urls')),
     # goods list
-    url(r'^goods/$', GoodsListView.as_view(), name='goods-list'),
+    # update to use GoodsListView
+    # url(r'^goods/$', GoodsListView.as_view(), name='goods-list'),
+    # update to use GoodsListViewSet
+    # url(r'^goods/$', goods_list, name='goods-list'),
+    # update to use router
+    url(r'^', include(router.urls)),
 
     url(r'docs/', include_docs_urls(title='Ecommerce')),
 ]
