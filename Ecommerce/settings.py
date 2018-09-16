@@ -166,3 +166,9 @@ JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),
     'JWT_AUTH_HEADER_PREFIX': 'JWT',
 }
+
+# mobile regex validate
+REGEX_MOBILE = "^1[358]\d{9}$|^147\d{8}$|^176\d{8}$"
+
+# api key of yunpian
+APIKEY = "xxxxxxxxxxxxxxxxxxxxxx"

@@ -1,6 +1,7 @@
 import requests
 import json
 
+
 class YunPian(object):
 
     def __init__(self, api_key):
@@ -11,7 +12,7 @@ class YunPian(object):
         parmas = {
             'apikey': self.api_key,
             'mobile': mobile,
-            'text': '【九溪飞云】您的验证码是{code}。如非本人操作，请忽略本短信'.format()
+            'text': '【XXXX】您的验证码是{code}。如非本人操作，请忽略本短信'.format()
         }
 
         response = requests.post(self.single_send_url, data=parmas)
