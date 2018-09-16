@@ -26,13 +26,14 @@ from rest_framework_jwt.views import obtain_jwt_token
 from Ecommerce.settings import MEDIA_ROOT
 # from goods.views import GoodsListView
 from goods.views import GoodsListViewSet, CategoryViewSet
-
+from users.views import SmsCodeViewset
 
 # goods_list = GoodsListViewSet.as_view({'get': 'list'})
 
 router = DefaultRouter()
 router.register(r'goods', GoodsListViewSet, base_name='goods')
 router.register(r'categorys', CategoryViewSet, base_name='categorys')
+router.register(r'smscode', SmsCodeViewset, base_name='smscode')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
