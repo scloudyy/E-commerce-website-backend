@@ -8,7 +8,7 @@ from rest_framework import mixins, status
 from rest_framework import viewsets
 from rest_framework.response import Response
 
-from .serializers import SmsSerializer
+from .serializers import SmsSerializer, UserRegSerializer
 from .models import VerifyCode
 from utils.yunpian import YunPian
 from Ecommerce.settings import APIKEY
@@ -66,7 +66,8 @@ class SmsCodeViewset(mixins.CreateModelMixin, viewsets.GenericViewSet):
 
 class UserViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     """
-    user
+    user viewset
     """
+    serializer_class = UserRegSerializer
 
 
