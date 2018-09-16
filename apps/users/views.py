@@ -10,7 +10,7 @@ User = get_user_model()
 
 class CustomBackend(ModelBackend):
     """
-    self define user verification
+    user maybe use username or mobile to login, so we need to redefine user verification
     """
     def authenticate(self, username=None, password=None, **kwargs):
         try:
@@ -20,9 +20,10 @@ class CustomBackend(ModelBackend):
         except Exception as e:
             return None
 
+
 class UserViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     """
     user
     """
-    
+
 
