@@ -49,7 +49,7 @@ from .filters import GoodsFilter
 class GoodsSetPagination(PageNumberPagination):
     page_size = 5
     page_size_query_param = 'page_size'  # front end set param: http://127.0.0.1:8000/goods/?page_size=3
-    page_query_param = 'p'
+    page_query_param = 'page'
     max_page_size = 20
 
 
