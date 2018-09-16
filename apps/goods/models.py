@@ -18,7 +18,7 @@ class GoodsCategory(models.Model):
     code = models.CharField(default="", max_length=30, verbose_name="category code", help_text="category code")
     desc = models.TextField(default="", verbose_name="category description", help_text="category description")
     category_type = models.IntegerField(choices=CATEGORY_TYPE, verbose_name="category level", help_text="category level")
-    parent_category = models.ForeignKey("self", null=True, blank=True, verbose_name="parent category", help_text="parent categoty",
+    parent_category = models.ForeignKey("self", null=True, blank=True, verbose_name="parent category", help_text="parent category",
                                         related_name="sub_cat", on_delete=models.ProtectedError)
     is_tab = models.BooleanField(default=False, verbose_name="whether on the tab", help_text="whether on the tab")
     add_time = models.DateTimeField(default=datetime.now, verbose_name="added time")
