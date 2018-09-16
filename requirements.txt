@@ -1,0 +1,7 @@
+django
+djangorestframework
+markdown
+django-filter
+djangorestframework-jwt
+django-cors-headers
+django-redis
