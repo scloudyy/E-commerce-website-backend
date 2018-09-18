@@ -69,5 +69,5 @@ class UserViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     user viewset
     """
     serializer_class = UserRegSerializer
-
+    queryset = User.objects.all()
 

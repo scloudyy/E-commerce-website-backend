@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from datetime import timedelta
 import re
 
@@ -36,20 +36,26 @@ class SmsSerializer(serializers.Serializer):
 
 
 class UserRegSerializer(serializers.ModelSerializer):
-    code = serializers.CharField(required=True, max_length=4, min_length=4,
+    code = serializers.CharField(required=True, max_length=4, min_length=4, write_only=True, label='sms verify code',
+                                 help_text='input verify code',
                                  error_messages={'required': 'please input verify code',
                                                  'blank': 'please input verify code',
                                                  'max_length': 'illegal verify code format',
                                                  'min_length': 'illegal verify code format'})
+    # Set write_only to True to ensure that this field may be used when updating or creating an instance,
+    # but is not included when serializing the representation.
     username = serializers.CharField(required=True, allow_blank=False, help_text='username',
                                      validators=[UniqueValidator(User.objects.all(), message='username already exist')])
+
+    password = serializers.CharField(style={'input_type': 'password'})
 
     def validate_code(self, data):
         records = VerifyCode.objects.filter(mobile=self.initial_data['username']).order_by('-add_time')
         if records:
             last_record = records[0]
 
-            five_minutes_ago = datetime.now() - timedelta(minutes=5)
+            five_minutes_ago = datetime.now(timezone.utc) - timedelta(minutes=5)
+            # Django's auto added time is timezone aware, so compared time should also be time zone aware
             if five_minutes_ago > last_record.add_time:
                 raise serializers.ValidationError('verify code expired')
             if data != last_record.code:
@@ -60,12 +66,13 @@ class UserRegSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         attrs['mobile'] = attrs['username']
         del attrs['code']
+        # since we have set code to write_only, it will not serializer to output
+        # and we can delete it safely
         return attrs
-
 
     class Meta:
         model = User
-        fields = ['username', 'mobile', 'code']
+        fields = ['username', 'mobile', 'code', 'password']
 
 
 class UserSerializer(serializers.ModelSerializer):
