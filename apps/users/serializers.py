@@ -47,7 +47,8 @@ class UserRegSerializer(serializers.ModelSerializer):
     username = serializers.CharField(required=True, allow_blank=False, help_text='username',
                                      validators=[UniqueValidator(User.objects.all(), message='username already exist')])
 
-    password = serializers.CharField(style={'input_type': 'password'})
+    password = serializers.CharField(style={'input_type': 'password'}, write_only=True)
+    # password should also be write_only since we should not return back password which is insecure
 
     def validate_code(self, data):
         records = VerifyCode.objects.filter(mobile=self.initial_data['username']).order_by('-add_time')
@@ -69,6 +70,12 @@ class UserRegSerializer(serializers.ModelSerializer):
         # since we have set code to write_only, it will not serializer to output
         # and we can delete it safely
         return attrs
+
+    def create(self, validated_data):
+        user = super(UserRegSerializer, self).create(validated_data=validated_data)
+        user.set_password(validated_data["password"])
+        user.save()
+        return user
 
     class Meta:
         model = User
