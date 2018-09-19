@@ -7,7 +7,7 @@ from rest_framework import  serializers
 from rest_framework.validators import UniqueValidator
 
 from Ecommerce.settings import REGEX_MOBILE
-from .models import VerifyCode
+from apps.users.models import VerifyCode
 
 User = get_user_model()
 
@@ -71,11 +71,11 @@ class UserRegSerializer(serializers.ModelSerializer):
         # and we can delete it safely
         return attrs
 
-    def create(self, validated_data):
-        user = super(UserRegSerializer, self).create(validated_data=validated_data)
-        user.set_password(validated_data["password"])
-        user.save()
-        return user
+    # def create(self, validated_data):
+    #     user = super(UserRegSerializer, self).create(validated_data=validated_data)
+    #     user.set_password(validated_data["password"])
+    #     user.save()
+    #     return user
 
     class Meta:
         model = User

@@ -8,8 +8,8 @@ from rest_framework import mixins, status
 from rest_framework import viewsets
 from rest_framework.response import Response
 
-from .serializers import SmsSerializer, UserRegSerializer
-from .models import VerifyCode
+from apps.users.serializers import SmsSerializer, UserRegSerializer
+from apps.users.models import VerifyCode
 from utils.yunpian import YunPian
 from Ecommerce.settings import APIKEY
 

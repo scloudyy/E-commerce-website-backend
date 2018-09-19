@@ -4,7 +4,10 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
-# don't work!
+# don't work in the previous
+# https://stackoverflow.com/questions/43322188/runtimeerror-model-class-django-messages-models-message-doesnt-declare-an-expl
+
+
 @receiver(post_save, sender=User)
 def encode_password(sender, instance=None, created=False, **kwargs):
     if created:
