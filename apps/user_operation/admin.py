@@ -1,5 +1,5 @@
 from django.contrib import admin
-from user_operation.models import UserFav, UserLeavingMessage, UserAddress
+from apps.user_operation.models import UserFav, UserLeavingMessage, UserAddress
 
 admin.site.register(UserFav)
 admin.site.register(UserLeavingMessage)

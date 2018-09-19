@@ -1,7 +1,7 @@
 from django.views.generic.base import View
 from django.http import HttpResponse, JsonResponse
 import json
-from goods.models import Goods
+from apps.goods.models import Goods
 
 
 class GoodListView(View):

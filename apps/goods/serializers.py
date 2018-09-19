@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
-from goods.models import Goods, GoodsCategory, GoodsImage, Banner
-from goods.models import GoodsCategoryBrand, IndexAd
+from apps.goods.models import Goods, GoodsCategory, GoodsImage, Banner
+from apps.goods.models import GoodsCategoryBrand, IndexAd
 
 
 # class GoodsSerializer(serializers.Serializer):

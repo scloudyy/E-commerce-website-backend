@@ -25,8 +25,8 @@ from rest_framework_jwt.views import obtain_jwt_token
 
 from Ecommerce.settings import MEDIA_ROOT
 # from goods.views import GoodsListView
-from goods.views import GoodsListViewSet, CategoryViewSet
-from users.views import SmsCodeViewset, UserViewSet
+from apps.goods.views import GoodsListViewSet, CategoryViewSet
+from apps.users.views import SmsCodeViewset, UserViewSet
 
 # goods_list = GoodsListViewSet.as_view({'get': 'list'})
 

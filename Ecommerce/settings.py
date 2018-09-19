@@ -39,16 +39,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps.users.apps.UsersConfig',
-    'goods',
-    'trade',
-    'user_operation',
+
+    # 3d's apps
+    'rest_framework',
+    'rest_framework.authtoken',
     'DjangoUeditor',
     'crispy_forms',
     'django_filters',
-    'rest_framework',
-    'rest_framework.authtoken',
-    'corsheaders'
+    'corsheaders',
+    
+    # project's apps
+    'apps.goods.apps.GoodsConfig',
+    'apps.users.apps.UsersConfig',
+    'apps.trade.apps.TradeConfig',
+    'apps.user_operation.apps.UserOperationConfig',
 ]
 
 MIDDLEWARE = [

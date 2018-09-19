@@ -10,9 +10,9 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 
 
-from .models import Goods, GoodsCategory
-from .serializers import GoodsSerializer, CategorySerializer
-from .filters import GoodsFilter
+from apps.goods.models import Goods, GoodsCategory
+from apps.goods.serializers import GoodsSerializer, CategorySerializer
+from apps.goods.filters import GoodsFilter
 
 # class GoodsListView(APIView):
 #     """
