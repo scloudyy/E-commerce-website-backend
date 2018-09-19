@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'corsheaders',
     
     # project's apps
+    # the front part of name such as 'apps.goods' should fit with the name attribute in GoodsConfig
     'apps.goods.apps.GoodsConfig',
     'apps.users.apps.UsersConfig',
     'apps.trade.apps.TradeConfig',

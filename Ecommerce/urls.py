@@ -33,8 +33,8 @@ from apps.users.views import SmsCodeViewset, UserViewSet
 router = DefaultRouter()
 router.register(r'goods', GoodsListViewSet, base_name='goods')
 router.register(r'categorys', CategoryViewSet, base_name='categorys')
-router.register(r'smscode', SmsCodeViewset, base_name='smscode')
-router.register(r'user', UserViewSet, base_name='user')
+router.register(r'codes', SmsCodeViewset, base_name='codes')
+router.register(r'users', UserViewSet, base_name='users')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
